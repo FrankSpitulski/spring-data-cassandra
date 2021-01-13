@@ -58,7 +58,7 @@ public class AlterUserTypeCqlGenerator extends UserTypeNameCqlGenerator<AlterUse
 		Assert.notNull(getSpecification().getName(), "User type name must not be null");
 
 		Assert.isTrue(!getSpecification().getChanges().isEmpty(),
-				String.format("User type [%s] does not contain fields", getSpecification().getName()));
+				() -> String.format("User type [%s] does not contain fields", getSpecification().getName()));
 
 		return changesCql(preambleCql(cql)).append(";");
 	}

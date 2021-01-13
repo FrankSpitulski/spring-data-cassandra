@@ -25,7 +25,6 @@ import java.util.function.Function;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.context.ApplicationContext;
@@ -521,7 +520,7 @@ public class MappingCassandraConverter extends AbstractCassandraConverter
 
 		Object id = extractId(source, entity);
 
-		Assert.notNull(id, String.format("No Id value found in object %s", source));
+		Assert.notNull(id, () -> String.format("No Id value found in object %s", source));
 
 		CassandraPersistentProperty idProperty = entity.getIdProperty();
 		CassandraPersistentProperty compositeIdProperty = null;
@@ -600,7 +599,7 @@ public class MappingCassandraConverter extends AbstractCassandraConverter
 	private void writeWhere(ConvertingPropertyAccessor<?> accessor, Where sink, CassandraPersistentEntity<?> entity) {
 
 		Assert.isTrue(entity.isCompositePrimaryKey(),
-				String.format("Entity [%s] is not a composite primary key", entity.getName()));
+				() -> String.format("Entity [%s] is not a composite primary key", entity.getName()));
 
 		for (CassandraPersistentProperty property : entity) {
 			TypeCodec<Object> codec = getCodec(property);
@@ -684,7 +683,7 @@ public class MappingCassandraConverter extends AbstractCassandraConverter
 		ConvertingPropertyAccessor<?> propertyAccessor = newConvertingPropertyAccessor(object, entity);
 
 		Assert.isTrue(entity.getType().isAssignableFrom(object.getClass()),
-				String.format("Given instance of type [%s] is not compatible with expected type [%s]",
+				() -> String.format("Given instance of type [%s] is not compatible with expected type [%s]",
 						object.getClass().getName(), entity.getType().getName()));
 
 		if (object instanceof MapIdentifiable) {

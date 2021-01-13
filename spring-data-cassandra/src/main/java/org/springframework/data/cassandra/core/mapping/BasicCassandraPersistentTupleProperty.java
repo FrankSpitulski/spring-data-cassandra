@@ -68,7 +68,8 @@ public class BasicCassandraPersistentTupleProperty extends BasicCassandraPersist
 		}
 
 		Assert.isTrue(ordinal >= 0,
-				String.format("Element ordinal must be greater or equal to zero for property [%s] in entity [%s]", getName(),
+				() -> String.format("Element ordinal must be greater or equal to zero for property [%s] in entity [%s]",
+						getName(),
 						getOwner().getName()));
 
 		return ordinal;

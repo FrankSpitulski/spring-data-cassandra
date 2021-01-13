@@ -165,7 +165,7 @@ class RowReader {
 
 		int index = columns.firstIndexOf(columnName);
 
-		Assert.isTrue(index > -1, String.format("Column [%s] does not exist in table", columnName));
+		Assert.isTrue(index > -1, () -> String.format("Column [%s] does not exist in table", columnName));
 
 		return index;
 	}
